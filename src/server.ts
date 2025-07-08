@@ -1,10 +1,9 @@
+/* eslint-disable no-console */
 import { Server } from "http";
-import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import app from "./app";
 
 let server: Server;
-
 const startServer = async () => {
   try {
     await mongoose.connect("mongodb://localhost:27017/");
