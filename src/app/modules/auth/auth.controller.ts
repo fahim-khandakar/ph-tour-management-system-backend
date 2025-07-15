@@ -97,7 +97,6 @@ const googleCallbackController = catchAsync(
       redirectTo = redirectTo.slice(1);
     }
 
-    // /booking => booking , => "/" => ""
     const user = req.user;
 
     if (!user) {
@@ -107,13 +106,6 @@ const googleCallbackController = catchAsync(
     const tokenInfo = createUserTokens(user);
 
     setAuthCookie(res, tokenInfo);
-
-    // sendResponse(res, {
-    //     success: true,
-    //     statusCode: httpStatus.OK,
-    //     message: "Password Changed Successfully",
-    //     data: null,
-    // })
 
     res.redirect(`${envVars.FRONTEND_URL}/${redirectTo}`);
   }
