@@ -14,7 +14,7 @@ export const checkAuth =
       const accessToken = req.headers.authorization;
 
       if (!accessToken) {
-        throw new AppError(403, "No Token Recieved");
+        throw new AppError(403, "No Token Received");
       }
 
       const verifiedToken = verifyToken(
