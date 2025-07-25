@@ -1,22 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
+import { deleteImageFromCLoudinary } from "../config/cloudinary.config";
 import { envVars } from "../config/env";
 import { handleCastError } from "../helpers/handleCastError";
-import { TErrorSources } from "../interfaces/error.types";
 import { handlerDuplicateError } from "../helpers/handleDuplicateError";
+import { TErrorSources } from "../interfaces/error.types";
 import { handlerZodError } from "../helpers/handleZodError";
 import { handlerValidationError } from "../helpers/handleValidationError";
 import AppError from "../error helpers/AppError";
 
-export const globalErrorHandler = (
+export const globalErrorHandler = async (
   err: any,
   req: Request,
   res: Response,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
   if (envVars.NODE_ENV === "development") {
     console.log(err);
+  }
+  console.log({ file: req.files });
+  if (req.file) {
+    await deleteImageFromCLoudinary(req.file.path);
+  }
+
+  if (req.files && Array.isArray(req.files) && req.files.length) {
+    const imageUrls = (req.files as Express.Multer.File[]).map(
+      (file) => file.path
+    );
+
+    await Promise.all(imageUrls.map((url) => deleteImageFromCLoudinary(url)));
   }
 
   let errorSources: TErrorSources[] = [];
