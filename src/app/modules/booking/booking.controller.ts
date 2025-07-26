@@ -4,7 +4,7 @@ import { JwtPayload } from "jsonwebtoken";
 
 import { BookingService } from "./booking.service";
 import catchAsync from "../../utils/catchAsync";
-import sendResponse from "../../utils/sendResponse";
+import { sendResponse } from "../../utils/sendResponse";
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
   const decodeToken = req.user as JwtPayload;

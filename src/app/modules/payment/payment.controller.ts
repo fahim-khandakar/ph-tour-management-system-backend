@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { envVars } from "../../config/env";
 import { PaymentService } from "./payment.service";
 import catchAsync from "../../utils/catchAsync";
-import sendResponse from "../../utils/sendResponse";
+import { sendResponse } from "../../utils/sendResponse";
 
 const initPayment = catchAsync(async (req: Request, res: Response) => {
   const bookingId = req.params.bookingId;

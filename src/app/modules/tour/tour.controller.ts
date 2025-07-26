@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ITour } from "./tour.interface";
 import { TourService } from "./tour.service";
 import catchAsync from "../../utils/catchAsync";
-import sendResponse from "../../utils/sendResponse";
+import { sendResponse } from "../../utils/sendResponse";
 
 const createTour = catchAsync(async (req: Request, res: Response) => {
   const payload: ITour = {
